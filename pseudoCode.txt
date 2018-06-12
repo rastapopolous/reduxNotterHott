@@ -1,0 +1,57 @@
+/*
+
+<IndexRoute component={Home} />
+<Route path='/profile/:SEEDid' component={UserProfile} />
+<Route path='/hottest/:SEEDid' component={hottest} />
+
+Gonna BE:
+
+Routes
+  Layout / route
+  Index route w choose component ={usersDisplay}
+    on load data file needs to make api call to load 300 people from api
+      needs to run through each and add a random score btwn 1& 200
+    Maps ul of two child components
+      <link> wraps profile pic
+      under profile pic will have name, hometown, score
+        on click, ProfilePic method() gets SEEDid to route parameter
+        on click update this.state.wasClicked with id of wasClicked
+        calls method to find a new user based on current flag parameter
+      under profile pic will have more about me link to route/profile/:id
+    Will have buttons for rateMen/rateWomen/rateM2W
+    /hottest woman/hottest man/hottestHottest
+      each button sets value on a state flag (male female highest) that determines find parameter
+      needs call a method to find first two men/women or a manThenAwoman
+      each needs to return an array to state
+
+      need if else for flags to find the man/woman/hottest
+
+      then pass its SEEDid to hottest/:id
+
+  route /profile/:id
+    displays bigger pic and more profile info
+  route /hottest/:id
+
+    onload make api call for user w that SEEDid
+    match id against all ids
+
+  Components:
+  Layout: header footer div w this.child
+  userDisplay:
+    makes api call for 300 users
+    gives them random scores
+    3 buttons for rate men /rate women /rate m&w
+    has state:
+      hottestFlag: default is m-f-all
+    Hottest buttons:
+      on click set hottestFlag m f all
+        var gendered = data
+        var buttonPref = this.state.hotness
+        if (buttonPref !== 'All') {
+        var gendered = data.filter((each, buttonpref) => {}
+          return (each.gender === buttonpref)
+        }
+      reduce to highest score
+      this.state.id = highest score.seed
+
+  */

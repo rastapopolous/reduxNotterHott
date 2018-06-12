@@ -1,0 +1,41 @@
+{
+  "plugins": [
+    "react",
+    "jsx-a11y"
+  ],
+
+  "parser": "babel-eslint",
+
+  "env": {
+    "browser": true
+  },
+
+  "globals": {
+    "document": false
+  },
+
+  "extends": [
+    "airbnb",
+    "eslint:recommended",
+    "plugin:react/recommended",
+  ],
+
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "semi": [2, "never"],
+    "react/jsx-indent": [2, 2],
+    "jsx-quotes": [2, "prefer-single"],
+    "react/prefer-stateless-function": "warn",
+    "space-before-function-paren": [2, "always"],
+    "comma-dangle": [2, "never"],
+    "react/jsx-closing-bracket-location": [2, "after-props"],
+    "no-underscore-dangle": [2, {"allow": ["_id"]}],
+    "jsx-a11y/href-no-hash": "off",
+    "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }]
+  }
+}

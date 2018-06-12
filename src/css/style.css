@@ -1,0 +1,307 @@
+.header-div {
+  max-width: 1024px;
+  width: 1024px;
+}
+
+.child-display {
+  height: 100%;
+  width: 100%;
+}
+
+.rateMe-howTo {
+  display: flex;
+  flex-direction: row;
+  background-color: red;
+  padding: 0.25em;
+  margin: 0em;
+  width: 100%;
+  height: 100%;
+  font-family: 'Russo One', sans-serif;
+  font-weight: 600;
+  color: white;
+}
+
+.howTo-intro {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1.3 0 0;
+}
+
+.howTo-intro span {
+  font-size: 45px;
+}
+
+.howTo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex: 2 0 0;
+}
+.howTo-text p {
+  font-size: 15px;
+  margin-left: 20px;
+  justify-content: space-between;
+}
+
+.routeContainer {
+  display: block;
+  background-color: #afceff;
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.rateMe-componentContainer {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid #5a5c5e;
+  border-radius: 4px;
+  width: 56 %;
+  max-height: 100%;
+  margin: 5px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  background: yellow;
+  width: 100%;
+  height: 90px;
+}
+
+.buttonCont-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-top: 5px;
+  padding-right: 6px;
+  flex: 2 0 0;
+}
+
+.buttonCont-right {
+  display: flex;
+  flex-direction: column;
+  flex: 5 0 0;
+  padding-top: 5px;
+}
+.buttonCont-title {
+  font-family: 'Russo-one', sans-serif;
+  font-size: 25px;
+  font-weight: 900;
+  margin-left: 5px;
+}
+
+.buttonCont-topHalf {
+  display: flex;
+  flex-direction: row;
+  flex: 1 0 0;
+  width: 100%;
+  justify-content: flex-start;
+  align-content: center;
+  padding-top: 5px;
+}
+
+.buttonCont-topHalf button {
+  padding-top: 4px;
+}
+div.buttonCont-topHalf button:nth-child(2) {
+  margin-left: 10px;
+}
+
+div.buttonCont-topHalf button:nth-child(3) {
+  margin-left: 5px;
+}
+
+.buttonCont-bottomHalf {
+  display: flex;
+  flex: 1 0 0;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+div.buttonCont-bottomHalf button:nth-child(3) {
+  color: red;
+  font-size: 20px;
+  font-weight: 600;
+  padding-top: 2px;
+  padding-left: 3px;
+  width: 110px;
+}
+
+.buttonCont-bottomHalf button {
+  padding-top: 4px;
+}
+
+.filter-buttons {
+  border: 2px solid;
+  background-color: white;
+  border-radius: 3px;
+  height: 30px;
+  font-family: 'Russo-one', sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  margin-right: 10px;
+}
+
+.rateMe-innerComponent {
+}
+
+.card-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #dee1e5;
+  width: 100%;
+  max-height: 100%;
+}
+
+.profile-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+  margin-top: 2px;
+}
+
+.profileLink {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 29px;
+  width: 102%;
+  background-color: #538eed;
+  color: white;
+  font-weight: 600;
+  padding-top: 3px;
+  margin-left: -3px;
+  margin-top: 2px;
+
+}
+
+.text-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80px;
+  margin-top: 10px;
+}
+
+.user-info {
+  max-width: 100%;
+  margin: 4px;
+  background-color: white;
+}
+
+.userPic {
+  width: 314px;
+  height: 314px;
+  margin-top: 4px;
+}
+
+.userName {
+  font-family: 'Russo-one', sans-serif;
+  font-size: 25px;
+  color: #115ec4;
+  font-weight: 600;
+}
+
+.cityName {
+  font-family: 'Russo-one', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: -10px;
+}
+
+.hilight-profileContainer {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid #5a5c5e;
+  border-radius: 4px;
+  width: 56%;
+  max-height: 100%;
+  margin: 5px;
+}
+
+.highlight-titleBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 90px;
+}
+
+.box-yellow {
+  background: yellow;
+  color: gray;
+}
+
+.box-pink {
+  background: pink;
+  color: black;
+}
+
+.box-blue {
+  background-color: #538eed;
+  color: yellow;
+}
+
+.box-green {
+  background-color: #30ce1e;
+  color: black;
+}
+
+.hilight-imageAndTextDiv{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #dee1e5;
+  width: 100%;
+  max-height: 100%;
+}
+
+.hilight-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 50%;
+  margin-top: 2px;
+}
+
+.hilight-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 50%;
+  margin-top: 2px;
+}
+
+.hilightProfile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 50%;
+}
+
+footer {
+  background-color: gray;
+  height: 100px;
+  width: 100%;
+  border-top: 1px solid gray;
+}
+
+footer .footer-text {
+  font-family: 'Russo-one', sans-serif;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 1em;
+}
