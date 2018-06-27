@@ -8,7 +8,7 @@ export default class HilightUser extends Component {
     super()
 
     this.state = {
-      user: [],
+      oneUser: [],
       renderType: []
     }
 
@@ -21,6 +21,7 @@ componentWillMount () {
     const renderType = fullIdToArr.pop()
     const userCell = fullIdToArr.join('')
     const hottie = userData.filter(user => user.cell == userCell)
+//dispatch state to store
     this.setState({ oneUser: hottie, renderType }, () =>
         console.log(`THISUSER: ${this.state.oneUser[0]}`))
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import RateMe from './RateMe'
 import userData from '../data/userData'
+import  getUsers from  '../api/Users'
 
 export default class RateMeContainer extends Component {
   constructor () {
@@ -8,7 +9,8 @@ export default class RateMeContainer extends Component {
 
     this.state = {
     allUsers: userData,
-    filteredUsers: userData
+    filteredUsers: userData,
+    tempUsers: []
     }
 
     this.filterUsers = this.filterUsers.bind(this)
@@ -16,7 +18,15 @@ export default class RateMeContainer extends Component {
     this.routeProfile = this.routeProfile.bind(this)
   }
 
+  componentDidMount () {
+    getUsers().then(results => {
+//dispatch state for api results to store
+      this.setState({ tempUsers: results.data })
+    })
+  }
+
   getHottie (type) {
+    console.log(this.state.tempUsers)
     let fullGroup = this.state.allUsers
     let hottest = []
     if (type !== 'all') {
@@ -56,11 +66,13 @@ export default class RateMeContainer extends Component {
   filterUsers (type) {
     const fullGroup = this.state.allUsers
     if (type === 'all') {
+//dispatch state filteredUsers to store
       this.setState({ filteredUsers: fullGroup }, () =>
       console.log('filteredUSERS-ALL: '+this.state.filteredUsers))
     }
     else {
       const sifted = fullGroup.filter(user => user.gender == type)
+//dispatch state filteredUsers to store (same action as previous?)
       this.setState({ filteredUsers: sifted }, () =>
       console.log('filteredUSERS-SOME: '+this.state.filteredUsers))
     }

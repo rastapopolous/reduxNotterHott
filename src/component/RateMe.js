@@ -23,6 +23,7 @@ export default class RateMe extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (this.props.userInfo !== nextProps.userInfo) {
+//dispatch state to store
       this.setState({ allUsers: nextProps.userInfo, currentDisplay: [] }, () => {
         this.fillCurrentDisplay()
       })
@@ -43,6 +44,7 @@ export default class RateMe extends Component {
        }
     })
     const newDisplayed = displayed.filter(user => user.cell == id)
+//dispatch state to store
     this.setState({ currentDisplay: newDisplayed, arrIndex }, () => {
       this.fillCurrentDisplay()
     })
@@ -64,6 +66,7 @@ export default class RateMe extends Component {
       const makeUser = noDupes[userRand]
       return makeUser
     }
+
     for (let i = current.length; i < 2; i++) {
       if (current.length === 0) {
         const userNum = Math.floor(Math.random() * 20)
@@ -74,9 +77,11 @@ export default class RateMe extends Component {
           const thisIndex = this.state.arrIndex
           if (thisIndex === 1) {
             current.unshift(noDupe(firstElId))
+//dispatch state to store
             this.setState({ currentDisplay: current, arrIndex: null })
           } else {
             current.push(noDupe(firstElId))
+//dispatch state to store
             this.setState({ currentDisplay: current })
           }
       }
