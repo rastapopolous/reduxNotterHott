@@ -8,7 +8,7 @@ export default class HilightUser extends Component {
     super()
 
     this.state = {
-      oneUser: [],
+      featuredUser: [],
       renderType: []
     }
 
@@ -22,8 +22,8 @@ componentWillMount () {
     const userCell = fullIdToArr.join('')
     const hottie = userData.filter(user => user.cell == userCell)
 //dispatch state to store
-    this.setState({ oneUser: hottie, renderType }, () =>
-        console.log(`THISUSER: ${this.state.oneUser[0]}`))
+    this.setState({ featuredUser: hottie, renderType }, () =>
+        console.log(`THISUSER: ${this.state.featuredUser[0]}`))
 }
 
   renderRelevantHeader () {
@@ -61,7 +61,7 @@ componentWillMount () {
   }
 
   render () {
-    const user = this.state.oneUser[0]
+    const user = this.state.featuredUser[0]
     return (
       <div>
         <div className='routeContainer'>

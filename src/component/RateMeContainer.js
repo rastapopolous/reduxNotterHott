@@ -1,6 +1,16 @@
 import React, { Component } from 'react'
 import RateMe from './RateMe'
+//import { connect } from 'react-redux'
+/*
+import {
+  getUserData,
+  filteredUsers,
+  renderType,
+  filteredUsers,
+}
+*/
 import userData from '../data/userData'
+
 import  getUsers from  '../api/Users'
 
 export default class RateMeContainer extends Component {
@@ -8,9 +18,9 @@ export default class RateMeContainer extends Component {
     super()
 
     this.state = {
-    allUsers: userData,
-    filteredUsers: userData,
-    tempUsers: []
+      allUsers: userData,
+      filteredUsers: userData,
+      tempUsers: []
     }
 
     this.filterUsers = this.filterUsers.bind(this)
@@ -29,6 +39,7 @@ export default class RateMeContainer extends Component {
     console.log(this.state.tempUsers)
     let fullGroup = this.state.allUsers
     let hottest = []
+
     if (type !== 'all') {
       const sifted = fullGroup.filter(user => user.gender == type)
       fullGroup = sifted
@@ -37,11 +48,6 @@ export default class RateMeContainer extends Component {
       return mostHot.score > user.score ? mostHot : user
     })
 
-    //var variable = conditionA ? valueA : (conditionB ? valueB: (conditionC ? valueC : valueD));
-    /*
-    type === 'male' ? typeSymbol = 'M' :
-      (type === 'female' ? typeSymbol = 'F' : typeSymbol = '')
-    */
     let typeSymbol = 'B'
     if (type === 'male') {
       typeSymbol = 'M'
@@ -49,14 +55,12 @@ export default class RateMeContainer extends Component {
     if (type === 'female') {
       typeSymbol = 'F'
     }
-    const fullId = hottest.cell.concat(typeSymbol)
-    console.log('HottestCell: '+fullId)
-    this.context.router.push({
-      pathname: `/hottest/${fullId}`
-    })
+
+    this.routeProfile (hottest.cell, typeSymbol)
   }
 
   routeProfile (userCell, typeSymbol) {
+//dispatch typesymbol
     const profileId = userCell.concat(typeSymbol)
     this.context.router.push({
       pathname: `/hottest/${profileId}`
@@ -65,17 +69,13 @@ export default class RateMeContainer extends Component {
 
   filterUsers (type) {
     const fullGroup = this.state.allUsers
-    if (type === 'all') {
-//dispatch state filteredUsers to store
-      this.setState({ filteredUsers: fullGroup }, () =>
-      console.log('filteredUSERS-ALL: '+this.state.filteredUsers))
-    }
-    else {
-      const sifted = fullGroup.filter(user => user.gender == type)
-//dispatch state filteredUsers to store (same action as previous?)
-      this.setState({ filteredUsers: sifted }, () =>
-      console.log('filteredUSERS-SOME: '+this.state.filteredUsers))
-    }
+    const sifted = fullGroup.filter(user => user.gender == type)
+    type === 'all'
+    //dispatch state filteredUsers to store (same action as previous?)
+    ? this.setState({ filteredUsers: fullGroup }, () =>
+        console.log('filteredUSERS-ALL: '+this.state.filteredUsers))
+    : this.setState({ filteredUsers: sifted }, () =>
+        console.log('filteredUSERS-SOME: '+this.state.filteredUsers))
   }
 
   render () {

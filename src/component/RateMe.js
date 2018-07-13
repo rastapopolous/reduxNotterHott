@@ -7,6 +7,7 @@ export default class RateMe extends Component {
     super(props)
 
     this.state = {
+      //***this was  actually passed as filterUsers state from container
       allUsers: this.props.userInfo,
       currentDisplay: [],
       arrIndex: null
@@ -24,6 +25,7 @@ export default class RateMe extends Component {
   componentWillReceiveProps (nextProps) {
     if (this.props.userInfo !== nextProps.userInfo) {
 //dispatch state to store
+// this will dispatch to filteredUsers
       this.setState({ allUsers: nextProps.userInfo, currentDisplay: [] }, () => {
         this.fillCurrentDisplay()
       })
