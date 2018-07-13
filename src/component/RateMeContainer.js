@@ -1,14 +1,8 @@
 import React, { Component } from 'react'
 import RateMe from './RateMe'
-//import { connect } from 'react-redux'
-/*
-import {
-  getUserData,
-  filteredUsers,
-  renderType,
-  filteredUsers,
-}
-*/
+import { connect } from 'react-redux'
+import { getUserData, filteredUsers, renderType } from '../actions/actionThings'
+
 import userData from '../data/userData'
 
 import  getUsers from  '../api/Users'
@@ -29,8 +23,10 @@ export default class RateMeContainer extends Component {
   }
 
   componentDidMount () {
+
     getUsers().then(results => {
 //dispatch state for api results to store
+      console.log(results)
       this.setState({ tempUsers: results.data })
     })
   }
@@ -55,12 +51,12 @@ export default class RateMeContainer extends Component {
     if (type === 'female') {
       typeSymbol = 'F'
     }
-
+    //dispatch typeSymbol
     this.routeProfile (hottest.cell, typeSymbol)
   }
 
   routeProfile (userCell, typeSymbol) {
-//dispatch typesymbol
+    //retrieve typeSymbol
     const profileId = userCell.concat(typeSymbol)
     this.context.router.push({
       pathname: `/hottest/${profileId}`

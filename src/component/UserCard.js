@@ -1,10 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { renderType } from '../actions/actionThings'
 
 
 const UserCard = ({ onHandleClick, routeProfile, user }) => {
   return (
     <div className='profile-display'>
+      {/* need action here to dispatch typeSymbol*/}
       <button type='button' onClick={() => routeProfile(user.cell, 'P')}>
         <div className='profileLink'><span>Check me out on NotterHott!!!</span></div>
       </button>

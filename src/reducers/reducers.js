@@ -42,13 +42,3 @@ export function renderType (state = '', action) {
       return state
   }
 }
-
-
-export function myReducer (state = [], action) {
-  switch (action.type) {
-    case 'MYREDUCER':
-      return action.payload
-    default: 
-      return state
-  }
-}

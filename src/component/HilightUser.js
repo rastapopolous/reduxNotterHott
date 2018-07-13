@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import userData from '../data/userData'
-
 
 export default class HilightUser extends Component {
   constructor () {
@@ -15,16 +15,15 @@ export default class HilightUser extends Component {
     this.renderRelevantHeader = this.renderRelevantHeader.bind(this)
   }
 
-componentWillMount () {
+  componentWillMount () {
     const userInfo = this.props.params.fullId
     const fullIdToArr = userInfo.split('')
     const renderType = fullIdToArr.pop()
     const userCell = fullIdToArr.join('')
     const hottie = userData.filter(user => user.cell == userCell)
-//dispatch state to store
     this.setState({ featuredUser: hottie, renderType }, () =>
         console.log(`THISUSER: ${this.state.featuredUser[0]}`))
-}
+  }
 
   renderRelevantHeader () {
     const woman = 'THE HOTTEST HOTT WOMAN!!!'
