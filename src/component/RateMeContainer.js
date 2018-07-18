@@ -26,8 +26,7 @@ export default class RateMeContainer extends Component {
 
     getUsers().then(results => {
 //dispatch state for api results to store
-      console.log(results)
-      this.setState({ tempUsers: results.data })
+      this.setState({ tempUsers: results.data.results})
     })
   }
 
@@ -52,6 +51,8 @@ export default class RateMeContainer extends Component {
       typeSymbol = 'F'
     }
     //dispatch typeSymbol
+    const theseUsers = this.state.tempUsers
+    theseUsers.forEach(user => console.log(user.cell))
     this.routeProfile (hottest.cell, typeSymbol)
   }
 
