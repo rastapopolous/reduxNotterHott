@@ -15,7 +15,7 @@ export function fetchedUsers (allUsers) {
   }
 }
 
-export function filteredUsers (filtUsers) {
+export function filterUsers (filtUsers) {
   return {
     type: 'FILTERED_USERS',
     filtUsers
@@ -36,9 +36,9 @@ export function arrIndex (arrPosition) {
   }
 }
 
-export function renderType (renderType) {
+export function renderType (typeSymbol) {
   return {
     type: 'RENDER_TYPE',
-    renderType
+    typeSymbol
   }
 }

@@ -1,38 +1,28 @@
 import React, { Component } from 'react'
-import RateMe from './RateMe'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getUserData, filteredUsers, renderType } from '../actions/actionThings'
-
+import RateMe from './RateMe'
+import ButtonPanel from './ButtonPanel'
+import { getUserData, filterUsers, renderType } from '../actions/actionThings'
 import userData from '../data/userData'
 
-import  getUsers from  '../api/Users'
 
-export default class RateMeContainer extends Component {
+class RateMeContainer extends Component {
   constructor () {
     super()
 
-    this.state = {
-      allUsers: userData,
-      filteredUsers: userData,
-      tempUsers: []
-    }
-
-    this.filterUsers = this.filterUsers.bind(this)
     this.getHottie = this.getHottie.bind(this)
     this.routeProfile = this.routeProfile.bind(this)
+    this.filterUsers = this.filterUsers.bind(this)
   }
 
   componentDidMount () {
-
-    getUsers().then(results => {
-//dispatch state for api results to store
-      this.setState({ tempUsers: results.data.results})
-    })
+    this.props.fetchUsers()
   }
 
   getHottie (type) {
-    console.log(this.state.tempUsers)
-    let fullGroup = this.state.allUsers
+    console.log(this.props.allUsers)
+    let fullGroup = this.props.allUsers
     let hottest = []
 
     if (type !== 'all') {
@@ -47,32 +37,30 @@ export default class RateMeContainer extends Component {
     if (type === 'male') {
       typeSymbol = 'M'
     }
-    if (type === 'female') {
+    if (typeSymbol === 'female') {
       typeSymbol = 'F'
     }
     //dispatch typeSymbol
-    const theseUsers = this.state.tempUsers
-    theseUsers.forEach(user => console.log(user.cell))
-    this.routeProfile (hottest.cell, typeSymbol)
+    this.props.renderType(typeSymbol)
+    this.routeProfile (hottest.cell)
   }
 
-  routeProfile (userCell, typeSymbol) {
+  routeProfile (userCell) {
     //retrieve typeSymbol
-    const profileId = userCell.concat(typeSymbol)
+    const profileId = userCell
     this.context.router.push({
       pathname: `/hottest/${profileId}`
     })
   }
 
   filterUsers (type) {
-    const fullGroup = this.state.allUsers
+    const fullGroup = this.props.allUsers
     const sifted = fullGroup.filter(user => user.gender == type)
     type === 'all'
     //dispatch state filteredUsers to store (same action as previous?)
-    ? this.setState({ filteredUsers: fullGroup }, () =>
-        console.log('filteredUSERS-ALL: '+this.state.filteredUsers))
-    : this.setState({ filteredUsers: sifted }, () =>
-        console.log('filteredUSERS-SOME: '+this.state.filteredUsers))
+    ? this.props.filterUsers(fullGroup)
+    : this.props.filterUsers(sifted), () =>
+        console.log('filteredUSERS-SOME: '+this.props.filteredUsers)
   }
 
   render () {
@@ -89,57 +77,14 @@ export default class RateMeContainer extends Component {
         </div>
         <div className='routeContainer'>
           <div className='rateMe-componentContainer'>
-            <div className='button-container'>
-              <div className='buttonCont-left'>
-                <p className='buttonCont-title'>Show me:</p>
-                <p className='buttonCont-title'>Whos Hottest?</p>
-              </div>
-              <div className='buttonCont-right'>
-                <div className='buttonCont-topHalf'>
-                  <button
-                    type='button'
-                    className='filter-buttons pure-button pure-button-active'
-                    onClick={() => this.filterUsers('all')}>
-                    Women&Men
-                  </button>
-                  <button
-                    type='button'
-                    className='filter-buttons pure-button pure-button-active'
-                    onClick={() => this.filterUsers('female')}>
-                    Women Only
-                  </button>
-                  <button
-                    type='button'
-                    className='filter-buttons pure-button pure-button-active'
-                    onClick={() => this.filterUsers('male')}>
-                    Men Only
-                  </button>
-                </div>
-                <div className='buttonCont-bottomHalf'>
-                  <button
-                    type='button'
-                    className='filter-buttons pure-button pure-button-active'
-                    onClick={() => this.getHottie('male')}>
-                    Hottest Guy
-                  </button>
-                  <button
-                    type='button'
-                    className='filter-buttons pure-button pure-button-active'
-                    onClick={() => this.getHottie('female')}>
-                    Hottest Woman
-                  </button>
-                  <button
-                    type='button'
-                    className='filter-buttons pure-button pure-button-active'
-                    onClick={() => this.getHottie('all')}>
-                    MOSTHOT
-                  </button>
-                </div>
-              </div>
+            <div>
+              <ButtonPanel
+                filterLink={this.filterUsers}
+                HottieLink={this.getHottie} />
             </div>
             <div className='rateMe-innerComponent'>
               <RateMe
-                userInfo={this.state.filteredUsers}
+                userInfo={this.props.filteredUsers}
                 profileLink={this.routeProfile} />
             </div>
           </div>
@@ -149,6 +94,43 @@ export default class RateMeContainer extends Component {
   }
 }
 
-RateMeContainer.contextTypes = {
-router: React.PropTypes.object
+const mapStateToProps = (state) => {
+    return {
+        users: state.allUsers,
+        filteredUsers: state.filtUsers
+    }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchUsers: () => dispatch(getUserData()),
+        filterUsers: (filtUsers) => dispatch(filterUsers(filtUsers)),
+        renderType: (typeSymbol) => dispatch(renderType(typeSymbol))
+    }
+}
+
+RateMeContainer.contextTypes = {
+  router: React.PropTypes.object
+}
+
+RateMeContainer.propTypes = {
+  allUsers: PropTypes.arrayOf(
+    PropTypes.shape({
+    })
+  ),
+  fetchUsers: PropTypes.func,
+  filterUsers: PropTypes.func,
+  filteredUsers: PropTypes.arrayOf(
+    PropTypes.shape({
+    })
+  )
+}
+
+RateMeContainer.defaultProps = {
+  allUsers: {},
+  fetchUsers: (() => {}),
+  filterUsers: (() => {}),
+  filteredUsers: []
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RateMeContainer)

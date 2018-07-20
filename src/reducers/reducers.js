@@ -19,7 +19,7 @@ export function filteredUsers (state = [], action) {
 export function currentDisplay (state = [], action) {
   switch (action.type) {
     case 'CURRENT_DISPLAY':
-      return action.currDisp
+      return action.currentDisplay
     default:
       return state
   }
@@ -37,7 +37,7 @@ export function currDispIndex (state = [], action) {
 export function renderType (state = '', action) {
   switch (action.type) {
     case 'RENDER_TYPE':
-      return action.renderType
+      return action.typeSymbol
     default:
       return state
   }
