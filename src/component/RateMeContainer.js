@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import RateMe from './RateMe'
 import ButtonPanel from './ButtonPanel'
-import { getUserData, filterUsers, renderType } from '../actions/actionThings'
-import userData from '../data/userData'
-
+import { getUserData, sendFilterUsers, renderType } from '../actions/actionThings'
 
 class RateMeContainer extends Component {
   constructor () {
@@ -58,9 +56,8 @@ class RateMeContainer extends Component {
     const sifted = fullGroup.filter(user => user.gender == type)
     type === 'all'
     //dispatch state filteredUsers to store (same action as previous?)
-    ? this.props.filterUsers(fullGroup)
-    : this.props.filterUsers(sifted), () =>
-        console.log('filteredUSERS-SOME: '+this.props.filteredUsers)
+    ? this.props.sendFilterUsers(fullGroup)
+    : this.props.sendFilterUsers(sifted)
   }
 
   render () {
@@ -79,8 +76,8 @@ class RateMeContainer extends Component {
           <div className='rateMe-componentContainer'>
             <div>
               <ButtonPanel
-                filterLink={this.filterUsers}
-                HottieLink={this.getHottie} />
+                filterClick={this.filterUsers}
+                hottieClick={this.getHottie} />
             </div>
             <div className='rateMe-innerComponent'>
               <RateMe
@@ -104,7 +101,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchUsers: () => dispatch(getUserData()),
-        filterUsers: (filtUsers) => dispatch(filterUsers(filtUsers)),
+        filterUsers: (filtUsers) => dispatch(sendFilterUsers(filtUsers)),
         renderType: (typeSymbol) => dispatch(renderType(typeSymbol))
     }
 }
@@ -119,18 +116,20 @@ RateMeContainer.propTypes = {
     })
   ),
   fetchUsers: PropTypes.func,
-  filterUsers: PropTypes.func,
+  sendFilterUsers: PropTypes.func,
   filteredUsers: PropTypes.arrayOf(
     PropTypes.shape({
     })
-  )
+  ),
+  renderType: PropTypes.func
 }
 
 RateMeContainer.defaultProps = {
   allUsers: {},
   fetchUsers: (() => {}),
-  filterUsers: (() => {}),
-  filteredUsers: []
+  sendFilterUsers: (() => {}),
+  filteredUsers: [],
+  renderType: (() => {})
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RateMeContainer)

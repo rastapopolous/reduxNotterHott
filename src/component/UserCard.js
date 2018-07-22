@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { renderType } from '../actions/actionThings'
+import { renderType,  } from '../actions/actionThings'
 
 
 const UserCard = ({ onHandleClick, routeProfile, user }) => {

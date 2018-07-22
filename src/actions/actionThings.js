@@ -3,7 +3,10 @@ import getUser from '../api/Users'
 export function getUserData () {
   return (dispatch) => {
     getUser()
-      .then(results => dispatch(fetchedUsers(results.data)))
+      .then(results => {
+        dispatch(fetchedUsers(results.data))
+        dispatch(sendFilterUsers(results.data))
+      })
       .catch(err => console.warn(`ERROR: ${err.message}`))
   }
 }
@@ -15,7 +18,7 @@ export function fetchedUsers (allUsers) {
   }
 }
 
-export function filterUsers (filtUsers) {
+export function sendFilterUsers (filtUsers) {
   return {
     type: 'FILTERED_USERS',
     filtUsers

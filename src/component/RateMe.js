@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import UserCard from './UserCard'
-import { filteredUsers, currentDisplay } from '../actions/actionThings'
+
 
 export default class RateMe extends Component {
   constructor (props) {
