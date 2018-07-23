@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import PropTypes from 'prop-types'
 
-
+//index route for app w header and footer
 const Layout = (props) => {
   return (
     <div className='layout-container'>

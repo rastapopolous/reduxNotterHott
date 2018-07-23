@@ -16,24 +16,6 @@ export function filteredUsers (state = [], action) {
   }
 }
 
-export function currentDisplay (state = [], action) {
-  switch (action.type) {
-    case 'CURRENT_DISPLAY':
-      return action.currentDisplay
-    default:
-      return state
-  }
-}
-
-export function currDispIndex (state = [], action) {
-  switch (action.type) {
-    case 'ARR_INDEX':
-    return action.arrPosition
-  default:
-    return state
-  }
-}
-
 export function renderType (state = '', action) {
   switch (action.type) {
     case 'RENDER_TYPE':

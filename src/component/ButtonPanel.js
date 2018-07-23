@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+//buttons to trigger filter and reduce methods via prop on parent
+//RateMeContainer component
 const ButtonPanel = ({ filterClick, hottieClick }) => {
   return (
     <div className='button-container'>

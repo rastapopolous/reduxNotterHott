@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import RateMe from './RateMe'
 import ButtonPanel from './ButtonPanel'
-import { getUserData, sendFilterUsers, renderType } from '../actions/actionThings'
+import { getUserData, filterUsers, renderType } from '../actions/actionThings'
 
 class RateMeContainer extends Component {
   constructor () {
@@ -13,15 +13,21 @@ class RateMeContainer extends Component {
     this.routeProfile = this.routeProfile.bind(this)
     this.filterUsers = this.filterUsers.bind(this)
   }
-
+  //api call to populate user data
   componentDidMount () {
-    this.props.fetchUsers()
+    this.props.getUserData()
+
   }
 
-  getHottie (type) {
-    console.log(this.props.allUsers)
+  //reduces userbase down by score&gender to single hottest user
+  getHottie (type, usercell) {
     let fullGroup = this.props.allUsers
     let hottest = []
+
+    if (type === 'P') {
+      this.props.renderType('P')
+      this.routeProfile(usercell)
+    }
 
     if (type !== 'all') {
       const sifted = fullGroup.filter(user => user.gender == type)
@@ -38,24 +44,24 @@ class RateMeContainer extends Component {
     if (typeSymbol === 'female') {
       typeSymbol = 'F'
     }
-    //dispatch typeSymbol
+
     this.props.renderType(typeSymbol)
     this.routeProfile (hottest.cell)
   }
-
+  //route user type to profile display route
   routeProfile (userCell) {
-    //retrieve typeSymbol
     const profileId = userCell
     this.context.router.push({
       pathname: `/hottest/${profileId}`
     })
   }
 
+  //filter userbase by gender or all users
   filterUsers (type) {
     const fullGroup = this.props.allUsers
     const sifted = fullGroup.filter(user => user.gender == type)
     type === 'all'
-    //dispatch state filteredUsers to store (same action as previous?)
+    //dispatch state subsetUsers to store (same action as previous?)
     ? this.props.sendFilterUsers(fullGroup)
     : this.props.sendFilterUsers(sifted)
   }
@@ -81,8 +87,8 @@ class RateMeContainer extends Component {
             </div>
             <div className='rateMe-innerComponent'>
               <RateMe
-                userInfo={this.props.filteredUsers}
-                profileLink={this.routeProfile} />
+                userInfo={this.props.subsetUsers}
+                profileLink={this.getHottie} />
             </div>
           </div>
         </div>
@@ -94,14 +100,14 @@ class RateMeContainer extends Component {
 const mapStateToProps = (state) => {
     return {
         users: state.allUsers,
-        filteredUsers: state.filtUsers
+        subsetUsers: state.filtUsers
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchUsers: () => dispatch(getUserData()),
-        filterUsers: (filtUsers) => dispatch(sendFilterUsers(filtUsers)),
+        getUserData: () => dispatch(getUserData()),
+        sendfilterUsers: (filtUsers) => dispatch(filterUsers(filtUsers)),
         renderType: (typeSymbol) => dispatch(renderType(typeSymbol))
     }
 }
@@ -115,9 +121,9 @@ RateMeContainer.propTypes = {
     PropTypes.shape({
     })
   ),
-  fetchUsers: PropTypes.func,
+  getUserData: PropTypes.func,
   sendFilterUsers: PropTypes.func,
-  filteredUsers: PropTypes.arrayOf(
+  subsetUsers: PropTypes.arrayOf(
     PropTypes.shape({
     })
   ),
@@ -125,10 +131,10 @@ RateMeContainer.propTypes = {
 }
 
 RateMeContainer.defaultProps = {
-  allUsers: {},
-  fetchUsers: (() => {}),
+  allUsers: [],
+  getUserData: (() => {}),
   sendFilterUsers: (() => {}),
-  filteredUsers: [],
+  subsetUsers: [],
   renderType: (() => {})
 }
 

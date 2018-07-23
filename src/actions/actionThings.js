@@ -5,9 +5,9 @@ export function getUserData () {
     getUser()
       .then(results => {
         dispatch(fetchedUsers(results.data))
-        dispatch(sendFilterUsers(results.data))
+        dispatch(filterUsers(results.data))
       })
-      .catch(err => console.warn(`ERROR: ${err.message}`))
+      .catch(new Error('failed'))
   }
 }
 
@@ -18,24 +18,10 @@ export function fetchedUsers (allUsers) {
   }
 }
 
-export function sendFilterUsers (filtUsers) {
+export function filterUsers (filtUsers) {
   return {
     type: 'FILTERED_USERS',
     filtUsers
-  }
-}
-
-export function currentDisplay (currDisp) {
-  return {
-    type: 'CURRENT_DISPLAY',
-    currDisp
-  }
-}
-
-export function arrIndex (arrPosition) {
-  return {
-    type: 'ARR_INDEX',
-    arrPosition
   }
 }
 

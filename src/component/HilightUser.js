@@ -1,36 +1,31 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import userData from '../data/userData'
 
-export default class HilightUser extends Component {
+class HilightUser extends Component {
   constructor () {
     super()
 
     this.state = {
-      featuredUser: [],
-      renderType: []
+      featuredUser: []
     }
 
     this.renderRelevantHeader = this.renderRelevantHeader.bind(this)
   }
 
   componentWillMount () {
-    const userInfo = this.props.params.fullId
-    const fullIdToArr = userInfo.split('')
-    const renderType = fullIdToArr.pop()
-    const userCell = fullIdToArr.join('')
-    const hottie = userData.filter(user => user.cell == userCell)
-    this.setState({ featuredUser: hottie, renderType }, () =>
-        console.log(`THISUSER: ${this.state.featuredUser[0]}`))
+    const userCell = this.props.params.profileId
+    const fullUserGroup = this.props.everyUser
+    const hottie = fullUserGroup.filter(user => user.cell == userCell)
+    this.setState({ featuredUser: hottie})
   }
-
+  
   renderRelevantHeader () {
     const woman = 'THE HOTTEST HOTT WOMAN!!!'
     const man = 'THE HOTTEST HOTT GUY!!!'
     const both = 'THE HOTTEST HOTTEST HOTT!!!'
     const profile = 'Find out more about me:)'
-    const thisType = this.state.renderType
+    const thisType = this.props.thisType
 
     if (thisType[0] === 'B') {
       return (
@@ -86,14 +81,31 @@ export default class HilightUser extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    everyUser: state.allUsers,
+    thisType: state.typeSymbol
+
+  }
+}
+
 HilightUser.propTypes = {
   params: React.PropTypes.shape({
-    fullId: React.PropTypes.string
-  })
+    profileId: React.PropTypes.string
+  }),
+  everyUser: PropTypes.arrayOf(
+    PropTypes.shape({
+    })
+  ),
+  thisType: PropTypes.arr
 }
 
 HilightUser.defaultProps = {
   params: {
-    fullId: ''
-  }
+    profileId: ''
+  },
+  everyUser: {},
+  thisType: []
 }
+
+export default connect(mapStateToProps)(HilightUser)

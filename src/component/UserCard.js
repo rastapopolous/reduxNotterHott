@@ -1,14 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { renderType,  } from '../actions/actionThings'
 
-
-const UserCard = ({ onHandleClick, routeProfile, user }) => {
+//card displays user profile with checkMeOut button prop-method that generates
+// HilightUser component, rendered from RateMeContainer component
+const UserCard = ({ onHandleClick, getHottie, user }) => {
   return (
     <div className='profile-display'>
-      {/* need action here to dispatch typeSymbol*/}
-      <button type='button' onClick={() => routeProfile(user.cell, 'P')}>
+      <button type='button' onClick={() => getHottie('P', user.cell)}>
         <div className='profileLink'><span>Check me out on NotterHott!!!</span></div>
       </button>
       <button type='button' className='user-info' onClick={() => onHandleClick(user.cell)}>
@@ -23,8 +21,6 @@ const UserCard = ({ onHandleClick, routeProfile, user }) => {
   )
 }
 
-export default UserCard
-
 UserCard.propTypes = {
   user: PropTypes.shape({
     cell: PropTypes.string,
@@ -35,7 +31,7 @@ UserCard.propTypes = {
     nat: PropTypes.string,
     newId: PropTypes.number
   }),
-  routeProfile: PropTypes.func,
+  getHottie: PropTypes.func,
   onHandleClick: PropTypes.func
 }
 
@@ -49,21 +45,8 @@ UserCard.defaultProps = {
     nat: '',
     newId: ''
   },
-  routeProfile: () => {},
+  getHottie: () => {},
   onHandleClick: () => {}
 }
 
-{/*
-UserCard.propTypes = {
-   user: PropTypes.arrayOf(PropTypes.shape({
-     cell: PropTypes.string,
-     dob: PropTypes.string,
-     picture: PropTypes.object,
-     name: PropTypes.object,
-     location: PropTypes.object,
-     nat: PropTypes.string,
-     newId: PropTypes.number
-   })),
-   onHandleClick: PropTypes.func
-}
-*/}
+export default UserCard

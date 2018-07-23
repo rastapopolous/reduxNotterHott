@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import UserCard from './UserCard'
 
-
+//component handles population of usercards, removes card on selection
+//replaces with updated card
 export default class RateMe extends Component {
   constructor (props) {
     super(props)
@@ -25,13 +26,12 @@ export default class RateMe extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (this.props.userInfo !== nextProps.userInfo) {
-//dispatch state to store
-// this will dispatch to filteredUsers
       this.setState({ allUsers: nextProps.userInfo, currentDisplay: [] }, () => {
         this.fillCurrentDisplay()
       })
     }
   }
+
 
   //Onclick in UserCard component, id is passed into UserRemove,
   //non-chosen usercard is filtered/removed.
@@ -40,39 +40,35 @@ export default class RateMe extends Component {
     let arrIndex = ''
     const displayed = this.state.currentDisplay
     displayed.forEach(element => {
-
        if (element.cell === id) {
   //preserves index position in array (1st 2nd) of clicked card
          arrIndex = displayed.indexOf(element)
        }
     })
     const newDisplayed = displayed.filter(user => user.cell == id)
-//dispatch state to store
     this.setState({ currentDisplay: newDisplayed, arrIndex }, () => {
       this.fillCurrentDisplay()
     })
   }
 
-  //populates user display with one or two users from this.state.allUsers
+  //iteratively re-populates user display with one or two users
+  //from this.state.allUsers
   fillCurrentDisplay () {
     const userGroup = this.state.allUsers
     const current = this.state.currentDisplay
-  //Must not duplicate 1st element of current displayed
-  //current display elOne is filtered from userGroup before rand selection
-  //of second el for current
+    //dedupes existing card in current display to ensure a different one is chosen
     function noDupe (userId) {
       const noDupes = userGroup.filter(user => user.cell != userId)
       const howMany = noDupes.length
-      console.log(noDupes)
       const userRand = Math.floor(Math.random() * howMany)
-      console.log(userRand)
       const makeUser = noDupes[userRand]
       return makeUser
     }
-
+    //iteratively fills current display, pushing or unshifting depending
+    //on existing card place in array (to ensure cards dont jump between loads)
     for (let i = current.length; i < 2; i++) {
       if (current.length === 0) {
-        const userNum = Math.floor(Math.random() * 20)
+        const userNum = Math.floor(Math.random() * 100)
         const zeroUser = userGroup[userNum]
         current.push(zeroUser)
       } else if (current.length === 1) {
@@ -80,11 +76,9 @@ export default class RateMe extends Component {
           const thisIndex = this.state.arrIndex
           if (thisIndex === 1) {
             current.unshift(noDupe(firstElId))
-//dispatch state to store
             this.setState({ currentDisplay: current, arrIndex: null })
           } else {
             current.push(noDupe(firstElId))
-//dispatch state to store
             this.setState({ currentDisplay: current })
           }
       }
@@ -99,7 +93,7 @@ export default class RateMe extends Component {
             return (
               <UserCard
                 onHandleClick={this.userRemove}
-                routeProfile={this.props.profileLink}
+                getHottie={this.props.profileLink}
                 key={user.cell}
                 user={user} />
             )
