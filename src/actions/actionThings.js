@@ -5,7 +5,6 @@ export function getUserData () {
     getUser()
       .then(results => {
         dispatch(fetchedUsers(results.data))
-        dispatch(filterUsers(results.data))
       })
       .catch(new Error('failed'))
   }
