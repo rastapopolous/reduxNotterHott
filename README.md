@@ -23,7 +23,7 @@
 
 ## Running locally
 1. `npm build`
-2. `npm run`
+2. `npm start`
 
 ##Note
 - App throws warning about moving to prop-types npm package and class Component syntax.  
